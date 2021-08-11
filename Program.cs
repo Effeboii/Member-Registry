@@ -1,12 +1,14 @@
 ﻿using System;
+using View;
 
 namespace Member_Registry
 {
-class Program
-{
-  static void Main(string[] args)
+  class Program
+  {
+    static void Main(string[] args)
     {
-      Console.WriteLine("Hello World!");
+      MenuView mainMenu = new MenuView();
+      mainMenu.Start();
     }
   }
 }
