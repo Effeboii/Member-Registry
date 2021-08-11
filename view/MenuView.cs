@@ -4,19 +4,21 @@ namespace View
 {
   class MenuView
   {
+    BoatView boatView = new BoatView();
+
     public void Start()
     {
       try
       {
-        while (true)
-        {
+        // while (true)
+        // {
           Console.Clear();
           Console.WriteLine("================================================");
           Console.WriteLine("Welcome to \"The Jolly Pirate Management System\".");
           Console.WriteLine("================================================");
           Console.WriteLine("What can I help you with today?");
-          Console.WriteLine("1: Manage members");
-          Console.WriteLine("2: Manage boats");
+          Console.WriteLine("1: Manage boats");
+          Console.WriteLine("2: Manage members");
           Console.WriteLine("3: List member information");
           Console.WriteLine("4: Exit");
 
@@ -25,7 +27,7 @@ namespace View
           switch (menuChoice)
           {
             case 1:
-              Console.WriteLine("Option 1");
+              boatView.ManageBoats();
               break;
             case 2:
               Console.WriteLine("Option 2");
@@ -41,7 +43,7 @@ namespace View
             default:
               break;
           }
-        }
+        // }
       }
       catch (Exception e)
       {               
