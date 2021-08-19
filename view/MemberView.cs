@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Model;
 
 namespace View
@@ -39,20 +40,51 @@ namespace View
 
     public void ListMemberInfo() 
     {
+      Console.Clear();
+      Console.WriteLine("=========================");
+      Console.WriteLine("Show list of all members");
+      Console.WriteLine("=========================");
+      Console.WriteLine("Choose a number!");
+      Console.WriteLine($"1. List a specific member");
+      Console.WriteLine($"2. {ListType.Compact} list");
+      Console.WriteLine($"3. {ListType.Verbose} list");
+      Console.WriteLine("4. Return to main menu");
+
+      int menuChoice = Convert.ToInt32(Console.ReadLine());
+
+        switch (menuChoice)
+      {
+        case 1:
+          DisplayMember();
+          System.Console.WriteLine("Press any button to go back to main menu");
+          Console.ReadKey(true);
+          break;
+        case 2:
+          DisplayAllMembers(ListType.Compact);
+          System.Console.WriteLine("Press any button to go back to main menu");
+          Console.ReadKey(true);
+          break;
+        case 3:
+          DisplayAllMembers(ListType.Verbose);
+          System.Console.WriteLine("Press any button to go back to main menu");
+          Console.ReadKey(true);
+          break;
+        default:
+          break;
+      }
     }
 
     public void DisplayMember()
     {
     }
 
-    public void DisplayAllMembers()
+    public void DisplayAllMembers(ListType listType)
     {
     }
 
     public int EnterMemberID()
     {
     }
-
 
     public void RegisterMember()
     {
