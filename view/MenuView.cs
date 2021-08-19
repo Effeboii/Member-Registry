@@ -5,6 +5,7 @@ namespace View
   class MenuView
   {
     BoatView boatView = new BoatView();
+    MemberView memberView = new MemberView();
 
     public void Start()
     {
@@ -31,6 +32,7 @@ namespace View
               break;
             case 2:
               Console.WriteLine("Option 2");
+              memberView.ManageMembers();
               break;
             case 3:
               Console.WriteLine("Option 3");
