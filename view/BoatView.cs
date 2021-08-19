@@ -8,7 +8,7 @@ namespace View
     {
       Console.Clear();
       Console.WriteLine("=========================");
-      Console.WriteLine("Manage boats");
+      Console.WriteLine("   -- Manage boats --");
       Console.WriteLine("=========================");
       Console.WriteLine("What can I help you with today?");
       Console.WriteLine("1. Register new boat");
