@@ -13,7 +13,7 @@ namespace View
       Console.WriteLine("==========================");
       Console.WriteLine("   -- Manage members --   ");
       Console.WriteLine("==========================");
-      Console.WriteLine("What can I help you with today?");
+      Console.WriteLine("Please select an option");
       Console.WriteLine("1. Register a new member");
       Console.WriteLine("2. Edit member");
       Console.WriteLine("3. Delete member");
@@ -40,13 +40,13 @@ namespace View
     public void ListMemberInfo() 
     {
       Console.Clear();
-      Console.WriteLine("=========================");
-      Console.WriteLine("Show list of all members");
-      Console.WriteLine("=========================");
+      Console.WriteLine("==========================");
+      Console.WriteLine(" Show list of all members");
+      Console.WriteLine("==========================");
       Console.WriteLine("Please select an option");
       Console.WriteLine($"1. List a specific member");
-      Console.WriteLine($"2. {ListType.Compact} list");
-      Console.WriteLine($"3. {ListType.Verbose} list");
+      Console.WriteLine($"2. View {ListType.Compact} list");
+      Console.WriteLine($"3. View {ListType.Verbose} list");
       Console.WriteLine("4. Return to main menu");
 
       int menuChoice = Convert.ToInt32(Console.ReadLine());
@@ -54,18 +54,28 @@ namespace View
       switch (menuChoice)
       {
         case 1:
+          Console.Clear();
           DisplayMember();
-          Console.WriteLine("Press any button to go back to main menu..");
+          Console.WriteLine("=================================================");
+          Console.WriteLine("Press any button to go back to the main menu..");
           Console.ReadKey(true);
           break;
         case 2:
+          Console.Clear();
+          Console.WriteLine("=================================================");
+          Console.WriteLine("Displaying a compact list of registered members");
           DisplayAllMembers(ListType.Compact);
-          Console.WriteLine("Press any button to go back to main menu..");
+          Console.WriteLine("=================================================");
+          Console.WriteLine("Press any button to go back to the main menu..");
           Console.ReadKey(true);
           break;
         case 3:
+          Console.Clear();
+          Console.WriteLine("=================================================");
+          Console.WriteLine("Displaying a verbose list of registered members");
           DisplayAllMembers(ListType.Verbose);
-          Console.WriteLine("Press any button to go back to main menu..");
+          Console.WriteLine("=================================================");
+          Console.WriteLine("Press any button to go back to the main menu..");
           Console.ReadKey(true);
           break;
         default:
@@ -95,7 +105,7 @@ namespace View
       {
         do
         {
-          Console.WriteLine("=========================");
+          Console.WriteLine("=================================================");
           Console.WriteLine("Enter member ID.");
           id = Convert.ToInt32(Console.ReadLine());
         }
@@ -118,7 +128,7 @@ namespace View
 
       do
       {
-        Console.WriteLine("=========================");
+        Console.WriteLine("=================================================");
         Console.WriteLine("Please enter full name");
         name = Console.ReadLine();
       }
@@ -126,7 +136,7 @@ namespace View
 
       do
       {
-        Console.WriteLine("=========================");
+        Console.WriteLine("=================================================");
         Console.WriteLine("Please enter social security number (format: YYMMDDNNNN)");
         ssn = Console.ReadLine();
 
@@ -140,7 +150,7 @@ namespace View
       try
       {
         memberModel.CreateMember(name, ssn);
-        Console.WriteLine("=========================");
+        Console.WriteLine("=================================================");
         Console.WriteLine("Member was added successfully");
         Console.WriteLine("Press any button to go back to main menu..");
         Console.ReadKey(true);
@@ -212,7 +222,7 @@ namespace View
         throw new Exception("Error while deleting member");
       }
 
-      Console.WriteLine("=========================");
+      Console.WriteLine("=================================================");
       Console.WriteLine($"Do you want to delete {uniqueMember.FullName}?");
       Console.WriteLine("1. Yes");
       Console.WriteLine("2. No");

@@ -11,7 +11,7 @@ namespace Model
     {
       try
       {
-        var json = System.IO.File.ReadAllText("Database.json");
+        var json = System.IO.File.ReadAllText("data/Database.json");
         List<MemberModel> list = JsonConvert.DeserializeObject<List<MemberModel>>(json);
         return list;
       }
@@ -23,7 +23,7 @@ namespace Model
 
     public void WriteToDatabase(List<MemberModel> database) 
     {
-      File.WriteAllText("Database.json", JsonConvert.SerializeObject(database));
+      File.WriteAllText("data/Database.json", JsonConvert.SerializeObject(database));
     }
 
     public void readMemberListFile()
