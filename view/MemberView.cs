@@ -56,17 +56,17 @@ namespace View
       {
         case 1:
           DisplayMember();
-          System.Console.WriteLine("Press any button to go back to main menu");
+          Console.WriteLine("Press any button to go back to main menu");
           Console.ReadKey(true);
           break;
         case 2:
           DisplayAllMembers(ListType.Compact);
-          System.Console.WriteLine("Press any button to go back to main menu");
+          Console.WriteLine("Press any button to go back to main menu");
           Console.ReadKey(true);
           break;
         case 3:
           DisplayAllMembers(ListType.Verbose);
-          System.Console.WriteLine("Press any button to go back to main menu");
+          Console.WriteLine("Press any button to go back to main menu");
           Console.ReadKey(true);
           break;
         default:
@@ -76,21 +76,45 @@ namespace View
 
     public void DisplayMember()
     {
+      int id = EnterMemberID();
+      Console.WriteLine(memberModel.DisplayMember(id).ToString(ListType.Verbose));
     }
 
     public void DisplayAllMembers(ListType listType)
     {
+      List<MemberModel> memberList = memberModel.DisplayAllMembers();
+      foreach (var member in memberList)
+      {
+        Console.WriteLine(member.ToString(listType));
+      }
     }
 
     public int EnterMemberID()
     {
+      int id = 0;
+      try
+      {
+        do
+        {
+          Console.WriteLine("=========================");
+          Console.WriteLine("Enter member ID.");
+          id = Convert.ToInt32(Console.ReadLine());
+        }
+        while (id.ToString().Length < 0);
+
+        return id; 
+      }
+      catch 
+      {
+        throw new ErrorWhileEnteringMemberId();
+      }
     }
 
     public void RegisterMember()
     {
       string name;
       string ssn;
-      bool continueDoWhile = true;
+      bool loop = true;
       Console.Clear();
 
       do
@@ -106,8 +130,13 @@ namespace View
         Console.WriteLine("=========================");
         Console.WriteLine("Please enter social security number (format: YYMMDDNNNN)");
         ssn = Console.ReadLine();
+
+        if (memberModel.checkSSN(ssn))
+        {
+          loop = false;
+        }
       }
-      while (ssn == "");
+      while (loop == true);
 
       try
       {
@@ -119,15 +148,86 @@ namespace View
       catch (Exception e)
       {
         Console.WriteLine(e);
+        throw new ErrorWhileCreatingMember();
       }
     }
 
     public void EditMember()
     {
+      int id = EnterMemberID();
+      Console.Clear();
+
+      try
+      {
+        List<MemberModel> dataFromDatabase = memberModel.getDataFromDatabase();
+        foreach (var member in dataFromDatabase)
+        {
+          if (member.ID == id)
+          {
+            Console.WriteLine($"Current name: {member.Name}");
+            string newName = "";
+
+            while (newName.Length <= 0)
+            {
+              Console.WriteLine("Enter new name: ");
+              newName = Console.ReadLine(); 
+            }
+
+            Console.WriteLine($"Current SSN: {member.SSN}");
+            member.Name = newName;
+            Console.WriteLine("Enter new SSN: ");
+            string newSSN = Console.ReadLine();
+
+            while (!memberModel.checkSSN(newSSN))
+            {
+              Console.WriteLine("Enter new SSN: ");
+              newSSN = Console.ReadLine();
+            }
+            member.SSN = newSSN;
+          }
+        }
+        memberModel.writeMemberToDatabase(dataFromDatabase);
+        Console.WriteLine("Member information was changed");
+        Console.WriteLine("Press any button to go back to main menu");
+        Console.ReadKey(true);
+      }
+      catch
+      {
+        throw new ErrorWhileEditingMember();
+      }
     }
 
     public void DeleteMember()
     {
+      Console.Clear();
+      int id = EnterMemberID();
+      MemberModel uniqueMember = new MemberModel();
+
+      try
+      {
+        uniqueMember = memberModel.findMemberInDb(id);
+      }
+      catch
+      {
+        throw new Exception("Error while deleting member");
+      }
+
+      Console.WriteLine("=========================");
+      Console.WriteLine($"Do you want to delete {uniqueMember.Name}?");
+      Console.WriteLine("1. Yes");
+      Console.WriteLine("2. No");
+
+      switch (Console.ReadLine())
+      {
+        case "1":
+          memberModel.removeMember(id);
+          System.Console.WriteLine("Member was removed");
+          System.Console.WriteLine("Press any button to go back to main menu");
+          Console.ReadKey(true);
+          break;
+        default:
+          break;
+      }
     }
   }
 }

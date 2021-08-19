@@ -6,4 +6,19 @@ namespace Model
   {
     public ErrorWhileGettingReadFromDatabase(){}
   }
+
+  public class ErrorWhileEnteringMemberId : Exception
+  {
+    public ErrorWhileEnteringMemberId(){}
+  }
+
+  public class ErrorWhileCreatingMember : Exception
+  {
+    public ErrorWhileCreatingMember(){}
+  }
+
+  public class ErrorWhileEditingMember : Exception
+  {
+    public ErrorWhileEditingMember(){}
+  }
 }
