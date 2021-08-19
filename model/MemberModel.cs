@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Model
 {
-  class MemberModel
+  public class MemberModel
   {
     DatabaseModel database = new DatabaseModel();
     public List<BoatModel> boatList = new List<BoatModel>();

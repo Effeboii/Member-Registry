@@ -92,7 +92,7 @@ namespace View
           throw new ErrorWhileSearchingForBoat();
         }
       }
-      while (!boatModel.checkIfBoatExistWithId(memberID, boatID));
+      while (!boatModel.CheckIfBoatExistWithID(memberID, boatID));
       return boatID;
     }
 
@@ -222,7 +222,7 @@ namespace View
 
           try
           {
-            boatModel.addBoat(memberID, type, boatLength);
+            boatModel.RegisterBoat(memberID, type, boatLength);
             Console.WriteLine("Boat was added");
             Console.WriteLine("Press any button to go back to main menu");
             Console.ReadKey(true);
@@ -251,7 +251,7 @@ namespace View
         
         try
         {
-          boatModel.editBoat(memberID, boatID, boatType, boatLength);
+          boatModel.EditBoat(memberID, boatID, boatType, boatLength);
           Console.WriteLine("Boat information was changed");
           Console.WriteLine("Press any button to go back to main menu");
           Console.ReadKey(true);     
@@ -279,7 +279,7 @@ namespace View
         int uniqueBoat = 0;
         try
         {
-          uniqueBoat = boatModel.searchUniqueBoat(memberID, boatID);
+          uniqueBoat = boatModel.SearchUniqueBoat(memberID, boatID);
           Console.WriteLine(uniqueBoat.GetType());
         
         }

@@ -1,4 +1,4 @@
-enum BoatType
+public enum BoatType
 {
   Sailboat,
   Motorsailer,
