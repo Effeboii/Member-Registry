@@ -140,7 +140,7 @@ namespace View
 
       try
       {
-        memberModel.StoreMember(name, ssn);
+        memberModel.CreateMember(name, ssn);
         System.Console.WriteLine("Member was added successfully");
         System.Console.WriteLine("Press any button to go back to main menu");
         Console.ReadKey(true);

@@ -7,7 +7,7 @@ namespace Model
 {
   public class DatabaseModel
   {   
-    public List<MemberModel> ReadFromDatabase() 
+    public List<MemberModel> ReadFromDatabase()
     {
       try
       {

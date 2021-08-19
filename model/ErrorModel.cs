@@ -21,4 +21,9 @@ namespace Model
   {
     public ErrorWhileEditingMember(){}
   }
+
+  public class ErrorWhileSearchingForMember : Exception
+  {
+    public ErrorWhileSearchingForMember(){}
+  }
 }
