@@ -1,9 +1,11 @@
 using System;
+using Model;
 
 namespace View
 {
   class MemberView
   {
+    MemberModel memberModel = new MemberModel();
     public void ManageMembers()
     {
       Console.Clear();
@@ -39,12 +41,13 @@ namespace View
     {
       string name;
       string ssn;
+      bool continueDoWhile = true;
       Console.Clear();
 
       do
       {
         Console.WriteLine("=========================");
-        Console.WriteLine("Please enter your full name");
+        Console.WriteLine("Please enter full name");
         name = Console.ReadLine();
       }
       while (name == "");
@@ -52,7 +55,7 @@ namespace View
       do
       {
         Console.WriteLine("=========================");
-        Console.WriteLine("Please enter your social security number (format: YYMMDDNNNN)");
+        Console.WriteLine("Please enter social security number (format: YYMMDDNNNN)");
         ssn = Console.ReadLine();
       }
       while (ssn == "");

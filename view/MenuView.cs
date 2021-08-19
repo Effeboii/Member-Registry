@@ -31,7 +31,6 @@ namespace View
               boatView.ManageBoats();
               break;
             case 2:
-              Console.WriteLine("Option 2");
               memberView.ManageMembers();
               break;
             case 3:
