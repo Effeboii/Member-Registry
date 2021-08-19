@@ -25,10 +25,5 @@ namespace Model
     {
       File.WriteAllText("data/Database.json", JsonConvert.SerializeObject(database));
     }
-
-    public void readMemberListFile()
-    {
-      throw new System.NotImplementedException();
-    }
   }
 }
