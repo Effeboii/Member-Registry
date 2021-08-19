@@ -24,7 +24,7 @@ namespace View
       {
         case 1:
           Console.WriteLine("Option 1");
-          registerMember();
+          RegisterMember();
           break;
         case 2:
           Console.WriteLine("Option 2");
@@ -37,7 +37,24 @@ namespace View
       }
     }
 
-    public void registerMember()
+    public void ListMemberInfo() 
+    {
+    }
+
+    public void DisplayMember()
+    {
+    }
+
+    public void DisplayAllMembers()
+    {
+    }
+
+    public int EnterMemberID()
+    {
+    }
+
+
+    public void RegisterMember()
     {
       string name;
       string ssn;
@@ -62,6 +79,7 @@ namespace View
 
       try
       {
+        memberModel.StoreMember(name, ssn);
         System.Console.WriteLine("Member was added successfully");
         System.Console.WriteLine("Press any button to go back to main menu");
         Console.ReadKey(true);
@@ -70,6 +88,14 @@ namespace View
       {
         Console.WriteLine(e);
       }
+    }
+
+    public void EditMember()
+    {
+    }
+
+    public void DeleteMember()
+    {
     }
   }
 }

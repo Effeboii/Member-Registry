@@ -28,5 +28,19 @@ namespace Model
       get { return _socialSecurityNumber; }
       set { _socialSecurityNumber = value; }
     }
+
+    public void StoreMember(string name, string ssn)
+    {
+      List<MemberModel> dataFromDatabase = database.ReadFromDatabase();
+      var newMember = new MemberModel
+      {
+        ID = checkMemberHighestIdNumber(),
+        Name = name,
+        SSN = ssn
+      };
+
+      dataFromDatabase.Add(newMember);
+      database.WriteToDatabase(dataFromDatabase);
+    }
   }
 }
