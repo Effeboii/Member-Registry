@@ -1,8 +1,3 @@
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-
 # Member Registry
 
 This application was developed as part of the course 1dv607 at Linnaeus University.
