@@ -11,7 +11,7 @@ namespace View
     {
       Console.Clear();
       Console.WriteLine("==========================");
-      Console.WriteLine("   -- Manage members --");
+      Console.WriteLine("   -- Manage members --   ");
       Console.WriteLine("==========================");
       Console.WriteLine("What can I help you with today?");
       Console.WriteLine("1. Register a new member");
@@ -24,14 +24,13 @@ namespace View
       switch (menuChoice)
       {
         case 1:
-          Console.WriteLine("Option 1");
           RegisterMember();
           break;
         case 2:
-          Console.WriteLine("Option 2");
+          EditMember();
           break;
         case 3:
-          Console.WriteLine("Option 3");
+          DeleteMember();
           break;
         default:
           break;
@@ -44,7 +43,7 @@ namespace View
       Console.WriteLine("=========================");
       Console.WriteLine("Show list of all members");
       Console.WriteLine("=========================");
-      Console.WriteLine("Choose a number!");
+      Console.WriteLine("Please select an option");
       Console.WriteLine($"1. List a specific member");
       Console.WriteLine($"2. {ListType.Compact} list");
       Console.WriteLine($"3. {ListType.Verbose} list");
@@ -56,17 +55,17 @@ namespace View
       {
         case 1:
           DisplayMember();
-          Console.WriteLine("Press any button to go back to main menu");
+          Console.WriteLine("Press any button to go back to main menu..");
           Console.ReadKey(true);
           break;
         case 2:
           DisplayAllMembers(ListType.Compact);
-          Console.WriteLine("Press any button to go back to main menu");
+          Console.WriteLine("Press any button to go back to main menu..");
           Console.ReadKey(true);
           break;
         case 3:
           DisplayAllMembers(ListType.Verbose);
-          Console.WriteLine("Press any button to go back to main menu");
+          Console.WriteLine("Press any button to go back to main menu..");
           Console.ReadKey(true);
           break;
         default:
@@ -141,8 +140,9 @@ namespace View
       try
       {
         memberModel.CreateMember(name, ssn);
+        Console.WriteLine("=========================");
         Console.WriteLine("Member was added successfully");
-        Console.WriteLine("Press any button to go back to main menu");
+        Console.WriteLine("Press any button to go back to main menu..");
         Console.ReadKey(true);
       }
       catch (Exception e)
@@ -188,7 +188,7 @@ namespace View
         }
         memberModel.WriteMemberToDatabase(dataFromDatabase);
         Console.WriteLine("Member information was changed");
-        Console.WriteLine("Press any button to go back to main menu");
+        Console.WriteLine("Press any button to go back to main menu..");
         Console.ReadKey(true);
       }
       catch
@@ -222,7 +222,7 @@ namespace View
         case "1":
           memberModel.DeleteMember(id);
           System.Console.WriteLine("Member was removed");
-          System.Console.WriteLine("Press any button to go back to main menu");
+          System.Console.WriteLine("Press any button to go back to main menu..");
           Console.ReadKey(true);
           break;
         default:

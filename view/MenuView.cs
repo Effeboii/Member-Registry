@@ -11,8 +11,8 @@ namespace View
     {
       try
       {
-        // while (true)
-        // {
+        while (true)
+        {
           Console.Clear();
           Console.WriteLine("================================================");
           Console.WriteLine("Welcome to \"The Jolly Pirate Management System\".");
@@ -34,7 +34,7 @@ namespace View
               memberView.ManageMembers();
               break;
             case 3:
-              Console.WriteLine("Option 3");
+              memberView.ListMemberInfo();
               break;
             case 4:
               Console.WriteLine("Thank you for choosing \"The Jolly Pirate Boat Club\".");
@@ -44,7 +44,7 @@ namespace View
             default:
               break;
           }
-        // }
+        }
       }
       catch (Exception e)
       {               
