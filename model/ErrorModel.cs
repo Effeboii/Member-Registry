@@ -26,4 +26,24 @@ namespace Model
   {
     public ErrorWhileSearchingForMember(){}
   }
+
+  public class ErrorWhileSearchingForBoat : Exception
+  {
+    public ErrorWhileSearchingForBoat(){}
+  }
+
+    public class ErrorWhileCreatingBoat : Exception
+  {
+    public ErrorWhileCreatingBoat(){}
+  }
+
+    public class ErrorWhileEditBoat : Exception
+  {
+    public ErrorWhileEditBoat(){}
+  }
+
+    public class ErrorWhileDeletingBoat : Exception
+  {
+    public ErrorWhileDeletingBoat(){}
+  }
 }

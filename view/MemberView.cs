@@ -52,7 +52,7 @@ namespace View
 
       int menuChoice = Convert.ToInt32(Console.ReadLine());
 
-        switch (menuChoice)
+      switch (menuChoice)
       {
         case 1:
           DisplayMember();
@@ -114,7 +114,7 @@ namespace View
     {
       string name;
       string ssn;
-      bool loop = true;
+      bool continueLoop = true;
       Console.Clear();
 
       do
@@ -131,18 +131,18 @@ namespace View
         Console.WriteLine("Please enter social security number (format: YYMMDDNNNN)");
         ssn = Console.ReadLine();
 
-        if (memberModel.checkSSN(ssn))
+        if (memberModel.CheckSSN(ssn))
         {
-          loop = false;
+          continueLoop = false;
         }
       }
-      while (loop == true);
+      while (continueLoop == true);
 
       try
       {
         memberModel.CreateMember(name, ssn);
-        System.Console.WriteLine("Member was added successfully");
-        System.Console.WriteLine("Press any button to go back to main menu");
+        Console.WriteLine("Member was added successfully");
+        Console.WriteLine("Press any button to go back to main menu");
         Console.ReadKey(true);
       }
       catch (Exception e)
@@ -159,12 +159,12 @@ namespace View
 
       try
       {
-        List<MemberModel> dataFromDatabase = memberModel.getDataFromDatabase();
+        List<MemberModel> dataFromDatabase = memberModel.GetDataFromDatabase();
         foreach (var member in dataFromDatabase)
         {
-          if (member.ID == id)
+          if (member.MemberID == id)
           {
-            Console.WriteLine($"Current name: {member.Name}");
+            Console.WriteLine($"Current name: {member.FullName}");
             string newName = "";
 
             while (newName.Length <= 0)
@@ -173,20 +173,20 @@ namespace View
               newName = Console.ReadLine(); 
             }
 
-            Console.WriteLine($"Current SSN: {member.SSN}");
-            member.Name = newName;
+            Console.WriteLine($"Current SSN: {member.SocialSecurityNumber}");
+            member.FullName = newName;
             Console.WriteLine("Enter new SSN: ");
             string newSSN = Console.ReadLine();
 
-            while (!memberModel.checkSSN(newSSN))
+            while (!memberModel.CheckSSN(newSSN))
             {
               Console.WriteLine("Enter new SSN: ");
               newSSN = Console.ReadLine();
             }
-            member.SSN = newSSN;
+            member.SocialSecurityNumber = newSSN;
           }
         }
-        memberModel.writeMemberToDatabase(dataFromDatabase);
+        memberModel.WriteMemberToDatabase(dataFromDatabase);
         Console.WriteLine("Member information was changed");
         Console.WriteLine("Press any button to go back to main menu");
         Console.ReadKey(true);
@@ -205,7 +205,7 @@ namespace View
 
       try
       {
-        uniqueMember = memberModel.findMemberInDb(id);
+        uniqueMember = memberModel.FindMemberInDatabase(id);
       }
       catch
       {
@@ -213,14 +213,14 @@ namespace View
       }
 
       Console.WriteLine("=========================");
-      Console.WriteLine($"Do you want to delete {uniqueMember.Name}?");
+      Console.WriteLine($"Do you want to delete {uniqueMember.FullName}?");
       Console.WriteLine("1. Yes");
       Console.WriteLine("2. No");
 
       switch (Console.ReadLine())
       {
         case "1":
-          memberModel.removeMember(id);
+          memberModel.DeleteMember(id);
           System.Console.WriteLine("Member was removed");
           System.Console.WriteLine("Press any button to go back to main menu");
           Console.ReadKey(true);
