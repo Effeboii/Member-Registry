@@ -11,9 +11,9 @@ namespace View
     public void ManageBoats()
     {
       Console.Clear();
-      Console.WriteLine("=========================");
-      Console.WriteLine("   -- Manage boats --");
-      Console.WriteLine("=========================");
+      Console.WriteLine("================================================");
+      Console.WriteLine("               -- Manage boats --               ");
+      Console.WriteLine("================================================");
       Console.WriteLine("What can I help you with today?");
       Console.WriteLine("1. Register new boat");
       Console.WriteLine("2. Edit boat");
@@ -25,13 +25,21 @@ namespace View
       switch (menuChoice)
       {
         case 1:
-          Console.WriteLine("Option 1");
+          Console.Clear();
+          Console.WriteLine("================================================");
+          Console.WriteLine("              -- Register boat --               ");
+          Console.WriteLine("================================================");
+          RegisterBoat();
           break;
         case 2:
-          Console.WriteLine("Option 2");
+          Console.Clear();
+          Console.WriteLine("================================================");
+          Console.WriteLine("                -- Edit boat --                 ");
+          Console.WriteLine("================================================");
+          EditBoat();
           break;
         case 3:
-          Console.WriteLine("Option 3");
+          DeleteBoat();
           break;
         default:
           break;
@@ -54,8 +62,7 @@ namespace View
       {
         do
         {
-          Console.WriteLine("=========================");
-          Console.WriteLine("Enter your member ID.");
+          Console.WriteLine("Please enter your member identification number..");
           memberID = Int32.Parse(Console.ReadLine());
         }
         while (!memberModel.CheckIfUserExistWithId(memberID));
@@ -73,19 +80,22 @@ namespace View
     {
       int boatID;
       MemberModel memberFromDb = memberModel.DisplayMember(memberID);
-      Console.Clear();
+      Console.WriteLine("=================================================");
+      Console.WriteLine($"Displaying the boats registered to {memberFromDb.FullName}");
+      Console.WriteLine("=================================================");
+
       foreach (BoatModel boat in memberFromDb.boatList)
       {
-        Console.WriteLine($"ID: {boat.ID}, Boat type: {boat.Type}, boat length: {boat.Length}");
+        Console.WriteLine($"ID: {boat.ID}, Boat type: {boat.Type}, boat length: {boat.Length}m");
       }
 
       do
       {
-        Console.WriteLine("===================");
-        Console.WriteLine("Enter your boat ID.");
+        Console.WriteLine("=================================================");
+        Console.WriteLine("Enter the ID of the specific boat");
         try
         {
-          boatID = Int32.Parse(Console.ReadLine());   
+          boatID = Int32.Parse(Console.ReadLine());
         }
         catch (System.Exception)
         {
@@ -103,20 +113,22 @@ namespace View
       {
         do
         {
-          Console.Clear();
-          Console.WriteLine("Enter length in meters, max 50");
+          Console.WriteLine("Please enter the length of the boat in meter (max 50m)");
+          Console.WriteLine("================================================");
           length = Convert.ToInt32(Console.ReadLine());
+
           if (length > 50)
           {
             length = 0;
           }
         }
         while (length < 1);
+
         return length;
       }
       catch
       {
-        Console.WriteLine("Boat length must contain a number! Pressa any key to enter a new number");
+        Console.WriteLine("Boat length must contain a number! Press any key to enter a new number");
         Console.ReadKey(true);
         CheckBoatLength();
         return 0;
@@ -130,9 +142,8 @@ namespace View
       int menuChoice;
       do
       {
-        Console.Clear();
-        Console.WriteLine("===================");
-        Console.WriteLine("Select your boat type.");
+        Console.WriteLine("Select the specific boat type");
+        Console.WriteLine("================================================");
         Console.WriteLine($"1. {BoatType.Sailboat}");
         Console.WriteLine($"2. {BoatType.Motorsailer}");
         Console.WriteLine($"3. {BoatType.Kayak}");
@@ -180,9 +191,8 @@ namespace View
         {
           do
           {
-            Console.Clear();
-            Console.WriteLine("===================");
-            Console.WriteLine("Select your boat type.");
+            Console.WriteLine("Select the specific boat type");
+            Console.WriteLine("================================================");
             Console.WriteLine($"1. {BoatType.Sailboat}");
             Console.WriteLine($"2. {BoatType.Motorsailer}");
             Console.WriteLine($"3. {BoatType.Kayak}");
@@ -223,8 +233,9 @@ namespace View
           try
           {
             boatModel.RegisterBoat(memberID, type, boatLength);
-            Console.WriteLine("Boat was added");
-            Console.WriteLine("Press any button to go back to main menu");
+            Console.WriteLine("================================================");
+            Console.WriteLine("The boat was successfully registered to our system");
+            Console.WriteLine("Press any button to go back to the main menu");
             Console.ReadKey(true);
           }
           catch
@@ -241,7 +252,6 @@ namespace View
 
     public void EditBoat()
     {
-      Console.Clear();
       int memberID = CheckIfUserExistWithId();
       if (memberModel.FindMemberInDatabase(memberID).boatList.Count > 0)
       {

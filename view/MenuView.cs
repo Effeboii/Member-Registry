@@ -15,7 +15,8 @@ namespace View
         {
           Console.Clear();
           Console.WriteLine("================================================");
-          Console.WriteLine("Welcome to \"The Jolly Pirate Management System\".");
+          Console.WriteLine("                -- Welcome to --                ");
+          Console.WriteLine("      \"The Jolly Pirate Management System\"    ");
           Console.WriteLine("================================================");
           Console.WriteLine("What can I help you with today?");
           Console.WriteLine("1: Manage boats");
@@ -37,7 +38,8 @@ namespace View
               memberView.ListMemberInfo();
               break;
             case 4:
-              Console.WriteLine("Thank you for choosing \"The Jolly Pirate Boat Club\".");
+              Console.WriteLine("================================================");
+              Console.WriteLine("Thank you for choosing \"The Jolly Pirate Management System\".");
               Console.WriteLine("Console terminates...");
               Environment.Exit(0);
               break;

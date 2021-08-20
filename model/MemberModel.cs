@@ -174,7 +174,7 @@ namespace Model
         
         foreach (var boat in boatList)
         {
-          returnString += $"Boat ID: {boat.ID}, Boat type: {boat.Type}, Boat length: {boat.Length}\n";
+          returnString += $"Boat ID: {boat.ID}, Boat type: {boat.Type}, Boat length: {boat.Length}m\n";
         }
         returnString += "------------------------------------------------\n";
       }
