@@ -72,9 +72,6 @@ namespace Model
       MemberModel member = SearchForMemberInDb(id);
       int memberID = member.ID;
 
-      Console.WriteLine("-----------");
-      Console.WriteLine(member.ID);
-
       if (memberID == id)
       {
         return true;

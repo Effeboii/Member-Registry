@@ -58,12 +58,13 @@ namespace View
       {
         do
         {
-          Console.WriteLine("Please enter your member identification number..");
+          Console.WriteLine("Please enter the member identification number");
+          Console.WriteLine("-------------------------------");
+          Console.Write("ID: ");
           memberID = Int32.Parse(Console.ReadLine());
         }
         while (!databaseModel.CheckIfUserExistWithId(memberID));
 
-        Console.WriteLine(memberID);
         return databaseModel.SearchForMemberInDb(memberID);   
       }
       catch 
@@ -110,9 +111,11 @@ namespace View
       {
         do
         {
+          Console.WriteLine("===============================");
           Console.WriteLine("Please enter the length of the boat in meter (max 50m)");
-          Console.WriteLine("================================================");
+          Console.WriteLine("-------------------------------");
           length = Convert.ToInt32(Console.ReadLine());
+          
           if (length > 50)
           {
             length = 0;
@@ -139,8 +142,9 @@ namespace View
 
       do
       {
+        Console.WriteLine("===============================");
         Console.WriteLine("Select the specific boat type");
-        Console.WriteLine("================================================");
+        Console.WriteLine("-------------------------------");
         Console.WriteLine($"1. {BoatType.Sailboat}");
         Console.WriteLine($"2. {BoatType.Motorsailer}");
         Console.WriteLine($"3. {BoatType.Kayak}");
@@ -188,8 +192,9 @@ namespace View
       {
         do
         {
+          Console.WriteLine("===============================");
           Console.WriteLine("Select the specific boat type");
-          Console.WriteLine("================================================");
+          Console.WriteLine("-------------------------------");
           Console.WriteLine($"1. {BoatType.Sailboat}");
           Console.WriteLine($"2. {BoatType.Motorsailer}");
           Console.WriteLine($"3. {BoatType.Kayak}");

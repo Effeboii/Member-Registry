@@ -132,8 +132,9 @@ namespace View
       {
         do
         {
-          Console.WriteLine("=================================================");
-          Console.WriteLine("Please enter member ID");
+          Console.WriteLine("Please enter your member identification number");
+          Console.WriteLine("-------------------------------");
+          Console.Write("ID: ");
           id = Convert.ToInt32(Console.ReadLine());
         }
         while (id.ToString().Length < 0);
@@ -155,9 +156,13 @@ namespace View
       
       do
       {
-        Console.WriteLine("=================================================");
-        Console.WriteLine("Please enter full name");
+        Console.WriteLine("===============================");
+        Console.WriteLine("   -- Register new member --   ");
+        Console.WriteLine("===============================");
+        Console.WriteLine("Please enter your full name");
         Console.WriteLine("Press 'q' to quit");
+        Console.WriteLine("-------------------------------");
+        Console.Write("Name: ");
         name = Console.ReadLine();
 
         if (name == 'q'.ToString())
@@ -169,8 +174,10 @@ namespace View
 
       do
       {
-        Console.WriteLine("=================================================");
+        Console.WriteLine("===============================");
         Console.WriteLine("Please enter social security number (format: YYMMDDNNNN)");
+        Console.WriteLine("-------------------------------");
+        Console.Write("SSN: ");
         ssn = Console.ReadLine();
 
         if (databaseModel.CheckSSN(ssn))
@@ -183,8 +190,8 @@ namespace View
       try
       {
         databaseModel.CreateMember(name, ssn);
-        Console.WriteLine("=================================================");
-        Console.WriteLine("Member was added successfully");
+        Console.WriteLine("===============================");
+        Console.WriteLine($"The member \"{name}\" was added successfully");
         Console.WriteLine("Press any button to go back to main menu..");
         Console.ReadKey(true);
       } 
@@ -198,6 +205,9 @@ namespace View
     public void EditMember()
     {
       Console.Clear();
+      Console.WriteLine("===============================");
+      Console.WriteLine("       -- Edit member --       ");
+      Console.WriteLine("===============================");
       int id = EnterMemberID();
 
       try
@@ -213,14 +223,19 @@ namespace View
 
             while (newName.Length <= 0)
             {
-              Console.WriteLine("Enter new name: ");
-              newName = Console.ReadLine(); 
+              Console.WriteLine("Please enter new name: ");
+              Console.Write("Name: ");
+              newName = Console.ReadLine();
+              Console.WriteLine("-------------------------------");
+
             }
 
             Console.WriteLine($"Current SSN: {member.SSN}");
             member.Name = newName;
-            Console.WriteLine("Enter new SSN: ");
+            Console.WriteLine("Please enter new SSN: ");
+            Console.Write("SSN: ");
             string newSSN = Console.ReadLine();
+            Console.WriteLine("-------------------------------");
 
             while (!databaseModel.CheckSSN(newSSN))
             {
@@ -245,6 +260,9 @@ namespace View
     public void DeleteMember()
     {
       Console.Clear();
+      Console.WriteLine("===============================");
+      Console.WriteLine("      -- Delete member --      ");
+      Console.WriteLine("===============================");
       int id = EnterMemberID();
       MemberModel member = null;
 
@@ -257,8 +275,13 @@ namespace View
         throw new Exception("Error while deleting member");
       }
       
-      Console.WriteLine("=========================");
-      Console.WriteLine($"Do you want to delete {member.Name}?");
+      Console.WriteLine("-------------------------------");
+      Console.WriteLine("Member found");
+      Console.WriteLine($"ID: {member.ID}");
+      Console.WriteLine($"Name: {member.Name}");
+      Console.WriteLine($"SSN: {member.SSN}");
+      Console.WriteLine(" ");
+      Console.WriteLine("Do you want to delete this member?");
       Console.WriteLine("1. Yes");
       Console.WriteLine("2. No");
 
@@ -266,8 +289,8 @@ namespace View
       {
         case "1":
           databaseModel.DeleteMember(member);
-          Console.WriteLine("Member was removed");
-          Console.WriteLine("Press any button to go back to main menu");
+          Console.WriteLine("Member was deleted from the system");
+          Console.WriteLine("Press any button to go back to main menu..");
           Console.ReadKey(true);
             break;
         default:
