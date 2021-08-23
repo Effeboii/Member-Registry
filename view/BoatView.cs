@@ -59,7 +59,7 @@ namespace View
         do
         {
           Console.WriteLine("Please enter the member identification number");
-          Console.WriteLine("-------------------------------");
+          Console.WriteLine("------------------------------------------------");
           Console.Write("ID: ");
           memberID = Int32.Parse(Console.ReadLine());
         }
@@ -76,9 +76,9 @@ namespace View
     public BoatModel CheckIfBoatExist(int memberID)
     {
       MemberModel memberFromDb = databaseModel.DisplayMember(memberID);
-      Console.WriteLine("=================================================");
+      Console.WriteLine("================================================");
       Console.WriteLine($"Displaying the boats registered to {memberFromDb.Name}");
-      Console.WriteLine("=================================================");
+      Console.WriteLine("------------------------------------------------");
 
       foreach (BoatModel boat in memberFromDb.Boats)
       {
@@ -87,8 +87,9 @@ namespace View
 
       do
       {
-        Console.WriteLine("=================================================");
+        Console.WriteLine("================================================");
         Console.WriteLine("Enter the ID of the specific boat");
+
         try
         {
           boatModel.ID = Int32.Parse(Console.ReadLine());   
@@ -111,11 +112,11 @@ namespace View
       {
         do
         {
-          Console.WriteLine("===============================");
+          Console.WriteLine("================================================");
           Console.WriteLine("Please enter the length of the boat in meter (max 50m)");
-          Console.WriteLine("-------------------------------");
+          Console.WriteLine("------------------------------------------------");
           length = Convert.ToInt32(Console.ReadLine());
-          
+
           if (length > 50)
           {
             length = 0;
@@ -142,9 +143,9 @@ namespace View
 
       do
       {
-        Console.WriteLine("===============================");
+        Console.WriteLine("================================================");
         Console.WriteLine("Select the specific boat type");
-        Console.WriteLine("-------------------------------");
+        Console.WriteLine("------------------------------------------------");
         Console.WriteLine($"1. {BoatType.Sailboat}");
         Console.WriteLine($"2. {BoatType.Motorsailer}");
         Console.WriteLine($"3. {BoatType.Kayak}");
@@ -192,9 +193,9 @@ namespace View
       {
         do
         {
-          Console.WriteLine("===============================");
+          Console.WriteLine("================================================");
           Console.WriteLine("Select the specific boat type");
-          Console.WriteLine("-------------------------------");
+          Console.WriteLine("------------------------------------------------");
           Console.WriteLine($"1. {BoatType.Sailboat}");
           Console.WriteLine($"2. {BoatType.Motorsailer}");
           Console.WriteLine($"3. {BoatType.Kayak}");
@@ -266,6 +267,7 @@ namespace View
         try
         {
           databaseModel.EditBoat(member, boatModel);
+          Console.WriteLine("================================================");
           Console.WriteLine("Boat information was changed");
           Console.WriteLine("Press any button to go back to main menu");
           Console.ReadKey(true);     
@@ -285,7 +287,6 @@ namespace View
 
     public void DeleteBoat()
     {
-      Console.Clear();
       MemberModel member = CheckIfUserExistWithId();
 
       if (databaseModel.SearchForMemberInDb(member.ID).Boats.Count > 0)
@@ -294,8 +295,8 @@ namespace View
         {
           BoatModel boat = CheckIfBoatExist(member.ID);                
 
-          Console.WriteLine("=========================");
-          Console.WriteLine($"Do you want to delete boat ID {boat.ID}?");
+          Console.WriteLine("================================================");
+          Console.WriteLine($"Do you want to delete the boat with ID {boat.ID}?");
           Console.WriteLine("1. Yes");
           Console.WriteLine("2. No");
 
@@ -305,13 +306,14 @@ namespace View
               try
               {
                 databaseModel.DeleteBoat(member, boat);
-                System.Console.WriteLine("Boat was removed");
-                System.Console.WriteLine("Press any button to go back to main menu");
+                Console.WriteLine("================================================");
+                Console.WriteLine("The boat was successfully removed from our system");
+                Console.WriteLine("Press any button to go back to main menu");
                 Console.ReadKey(true);
               }
               catch (ErrorWhileDeletingBoat e)
               {
-                System.Console.WriteLine(e);
+                Console.WriteLine(e);
                 throw new ErrorWhileDeletingBoat();
               }
               break;

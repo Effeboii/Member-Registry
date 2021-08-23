@@ -11,9 +11,9 @@ namespace View
     public void ManageMembers()
     {
       Console.Clear();
-      Console.WriteLine("==========================");
-      Console.WriteLine("   -- Manage members --   ");
-      Console.WriteLine("==========================");
+      Console.WriteLine("================================================");
+      Console.WriteLine("              -- Manage members --              ");
+      Console.WriteLine("================================================");
       Console.WriteLine("Please select an option");
       Console.WriteLine("1. Register a new member");
       Console.WriteLine("2. Edit member");
@@ -41,9 +41,9 @@ namespace View
     public void ListMemberInfo() 
     {
       Console.Clear();
-      Console.WriteLine("==========================");
-      Console.WriteLine(" Show list of all members");
-      Console.WriteLine("==========================");
+      Console.WriteLine("================================================");
+      Console.WriteLine("          -- List member information --         ");
+      Console.WriteLine("================================================");
       Console.WriteLine("Please select an option");
       Console.WriteLine($"1. List a specific member");
       Console.WriteLine($"2. View {ListType.Compact} list");
@@ -57,14 +57,15 @@ namespace View
         case 1:
           Console.Clear();
           DisplayMember();
-          Console.WriteLine("=================================================");
+          Console.WriteLine("================================================");
           Console.WriteLine("Press any button to go back to the main menu..");
           Console.ReadKey(true);
           break;
         case 2:
           Console.Clear();
-          Console.WriteLine("=================================================");
-          Console.WriteLine("Displaying a compact list of registered members");
+          Console.WriteLine("================================================");
+          Console.WriteLine("   -- Displaying a compact list of members --   ");
+          Console.WriteLine("================================================");
           DisplayAllMembers(ListType.Compact);
           Console.WriteLine("=================================================");
           Console.WriteLine("Press any button to go back to the main menu..");
@@ -72,8 +73,9 @@ namespace View
           break;
         case 3:
           Console.Clear();
-          Console.WriteLine("=================================================");
-          Console.WriteLine("Displaying a verbose list of registered members");
+          Console.WriteLine("================================================");
+          Console.WriteLine("   -- Displaying a verbose list of members --   ");
+          Console.WriteLine("================================================");
           DisplayAllMembers(ListType.Verbose);
           Console.WriteLine("=================================================");
           Console.WriteLine("Press any button to go back to the main menu..");
@@ -97,7 +99,7 @@ namespace View
 
       foreach (var member in listOfMembers)
       {
-        Console.WriteLine("===================-Member-======================\n");
+        Console.WriteLine("==================--Member--====================\n");
         if (listType == ListType.Compact)
         {
           Console.WriteLine( $"ID: {member.ID}, Name: {member.Name}, SSN: {member.SSN}, Number of boats: {member.Boats.Count}\n");
@@ -111,18 +113,20 @@ namespace View
 
     private void DisplayVerboseListOfMembersWithBoats (MemberModel member)
     {
+      Console.WriteLine("==================--Member--=====================");
+      Console.WriteLine("Presenting information about registered member\n");
       Console.WriteLine($"ID: {member.ID}\nName: {member.Name}\nSSN: {member.SSN}\n");
       DisplayAllBoatsFromOneMember(member);
     }
 
     private void DisplayAllBoatsFromOneMember(MemberModel member)
     {
-      Console.WriteLine("---------------------Boats----------------------\n");
+      Console.WriteLine("==================--Boats--======================\n");
+    
       foreach (var boat in member.Boats)
       {
         Console.WriteLine($"Boat ID: {boat.ID}, Boat type: {boat.Type}, Boat length: {boat.Length}\n");
       }
-      Console.WriteLine("------------------------------------------------\n");
     }
 
     public int EnterMemberID()
@@ -133,7 +137,7 @@ namespace View
         do
         {
           Console.WriteLine("Please enter your member identification number");
-          Console.WriteLine("-------------------------------");
+          Console.WriteLine("------------------------------------------------");
           Console.Write("ID: ");
           id = Convert.ToInt32(Console.ReadLine());
         }
@@ -156,12 +160,12 @@ namespace View
       
       do
       {
-        Console.WriteLine("===============================");
-        Console.WriteLine("   -- Register new member --   ");
-        Console.WriteLine("===============================");
+        Console.WriteLine("================================================");
+        Console.WriteLine("            -- Register new member --           ");
+        Console.WriteLine("================================================");
         Console.WriteLine("Please enter your full name");
         Console.WriteLine("Press 'q' to quit");
-        Console.WriteLine("-------------------------------");
+        Console.WriteLine("------------------------------------------------");
         Console.Write("Name: ");
         name = Console.ReadLine();
 
@@ -174,9 +178,9 @@ namespace View
 
       do
       {
-        Console.WriteLine("===============================");
+        Console.WriteLine("================================================");
         Console.WriteLine("Please enter social security number (format: YYMMDDNNNN)");
-        Console.WriteLine("-------------------------------");
+        Console.WriteLine("------------------------------------------------");
         Console.Write("SSN: ");
         ssn = Console.ReadLine();
 
@@ -190,7 +194,7 @@ namespace View
       try
       {
         databaseModel.CreateMember(name, ssn);
-        Console.WriteLine("===============================");
+        Console.WriteLine("================================================");
         Console.WriteLine($"The member \"{name}\" was added successfully");
         Console.WriteLine("Press any button to go back to main menu..");
         Console.ReadKey(true);
@@ -205,9 +209,9 @@ namespace View
     public void EditMember()
     {
       Console.Clear();
-      Console.WriteLine("===============================");
-      Console.WriteLine("       -- Edit member --       ");
-      Console.WriteLine("===============================");
+      Console.WriteLine("================================================");
+      Console.WriteLine("                -- Edit member --               ");
+      Console.WriteLine("================================================");
       int id = EnterMemberID();
 
       try
@@ -226,7 +230,7 @@ namespace View
               Console.WriteLine("Please enter new name: ");
               Console.Write("Name: ");
               newName = Console.ReadLine();
-              Console.WriteLine("-------------------------------");
+              Console.WriteLine("------------------------------------------------");
 
             }
 
@@ -235,7 +239,7 @@ namespace View
             Console.WriteLine("Please enter new SSN: ");
             Console.Write("SSN: ");
             string newSSN = Console.ReadLine();
-            Console.WriteLine("-------------------------------");
+            Console.WriteLine("------------------------------------------------");
 
             while (!databaseModel.CheckSSN(newSSN))
             {
@@ -247,6 +251,7 @@ namespace View
         }
 
         databaseModel.WriteMemberToDatabase(dataFromDatabase);
+        Console.WriteLine("================================================");
         Console.WriteLine("Member information was changed");
         Console.WriteLine("Press any button to go back to main menu..");
         Console.ReadKey(true);
@@ -260,9 +265,9 @@ namespace View
     public void DeleteMember()
     {
       Console.Clear();
-      Console.WriteLine("===============================");
-      Console.WriteLine("      -- Delete member --      ");
-      Console.WriteLine("===============================");
+      Console.WriteLine("================================================");
+      Console.WriteLine("              -- Delete member --               ");
+      Console.WriteLine("================================================");
       int id = EnterMemberID();
       MemberModel member = null;
 
@@ -275,7 +280,7 @@ namespace View
         throw new Exception("Error while deleting member");
       }
       
-      Console.WriteLine("-------------------------------");
+      Console.WriteLine("------------------------------------------------");
       Console.WriteLine("Member found");
       Console.WriteLine($"ID: {member.ID}");
       Console.WriteLine($"Name: {member.Name}");
@@ -289,6 +294,7 @@ namespace View
       {
         case "1":
           databaseModel.DeleteMember(member);
+          Console.WriteLine("================================================");
           Console.WriteLine("Member was deleted from the system");
           Console.WriteLine("Press any button to go back to main menu..");
           Console.ReadKey(true);
