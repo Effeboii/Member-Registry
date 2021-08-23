@@ -7,8 +7,8 @@ namespace Member_Registry
   {
     static void Main(string[] args)
     {
-      MenuView mainMenu = new MenuView();
-      mainMenu.Start();
+      MenuView run = new MenuView();
+      run.Start();
     }
   }
 }

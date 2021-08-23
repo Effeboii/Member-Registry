@@ -4,10 +4,11 @@ using Model;
 
 namespace View
 {
-  class BoatView
+  public class BoatView
   {
-    MemberModel memberModel = new MemberModel();
     BoatModel boatModel = new BoatModel();
+    DatabaseModel databaseModel = new DatabaseModel();
+
     public void ManageBoats()
     {
       Console.Clear();
@@ -39,6 +40,10 @@ namespace View
           EditBoat();
           break;
         case 3:
+          Console.Clear();
+          Console.WriteLine("================================================");
+          Console.WriteLine("               -- Delete boat --                ");
+          Console.WriteLine("================================================");
           DeleteBoat();
           break;
         default:
@@ -46,16 +51,7 @@ namespace View
       }
     }
 
-    private void DisplayAllMembers(ListType listType)
-    {
-      List<MemberModel> memberList = memberModel.DisplayAllMembers();
-      foreach (var member in memberList)
-      {
-        Console.WriteLine(member.ToString(listType));
-      }
-    }
-
-    public int CheckIfUserExistWithId()
+    public MemberModel CheckIfUserExistWithId()
     {
       int memberID;
       try
@@ -65,28 +61,27 @@ namespace View
           Console.WriteLine("Please enter your member identification number..");
           memberID = Int32.Parse(Console.ReadLine());
         }
-        while (!memberModel.CheckIfUserExistWithId(memberID));
+        while (!databaseModel.CheckIfUserExistWithId(memberID));
 
         Console.WriteLine(memberID);
-        return memberID;    
+        return databaseModel.SearchForMemberInDb(memberID);   
       }
       catch 
       {
-        return 0;
+        throw new Exception("Member does not exists");
       }
     }
 
-    public int CheckIfBoatExist(int memberID)
+    public BoatModel CheckIfBoatExist(int memberID)
     {
-      int boatID;
-      MemberModel memberFromDb = memberModel.DisplayMember(memberID);
+      MemberModel memberFromDb = databaseModel.DisplayMember(memberID);
       Console.WriteLine("=================================================");
-      Console.WriteLine($"Displaying the boats registered to {memberFromDb.FullName}");
+      Console.WriteLine($"Displaying the boats registered to {memberFromDb.Name}");
       Console.WriteLine("=================================================");
 
-      foreach (BoatModel boat in memberFromDb.boatList)
+      foreach (BoatModel boat in memberFromDb.Boats)
       {
-        Console.WriteLine($"ID: {boat.ID}, Boat type: {boat.Type}, boat length: {boat.Length}m");
+        Console.WriteLine($"ID: {boat.ID}, Boat type: {boat.Type}, Boat length: {boat.Length}m");
       }
 
       do
@@ -95,15 +90,17 @@ namespace View
         Console.WriteLine("Enter the ID of the specific boat");
         try
         {
-          boatID = Int32.Parse(Console.ReadLine());
+          boatModel.ID = Int32.Parse(Console.ReadLine());   
         }
         catch (System.Exception)
         {
           throw new ErrorWhileSearchingForBoat();
         }
+
       }
-      while (!boatModel.CheckIfBoatExistWithID(memberID, boatID));
-      return boatID;
+      while (!databaseModel.CheckIfBoatExistWithId(memberFromDb, boatModel));
+
+      return boatModel;
     }
 
     public int CheckBoatLength()
@@ -116,7 +113,6 @@ namespace View
           Console.WriteLine("Please enter the length of the boat in meter (max 50m)");
           Console.WriteLine("================================================");
           length = Convert.ToInt32(Console.ReadLine());
-
           if (length > 50)
           {
             length = 0;
@@ -140,6 +136,7 @@ namespace View
       BoatType boatType = BoatType.Sailboat;
       bool continueLoop = true;
       int menuChoice;
+
       do
       {
         Console.WriteLine("Select the specific boat type");
@@ -177,71 +174,72 @@ namespace View
         }
       }
       while (continueLoop);
+
       return boatType;
     }
 
     public void RegisterBoat()
     {
-      int memberID = CheckIfUserExistWithId();
-      BoatType type = BoatType.Sailboat;
+      MemberModel member = CheckIfUserExistWithId();
       int menuChoice;
       bool continueLoop = true;
 
-        if (memberID > 0)
+      if (member.ID > 0)
+      {
+        do
         {
-          do
+          Console.WriteLine("Select the specific boat type");
+          Console.WriteLine("================================================");
+          Console.WriteLine($"1. {BoatType.Sailboat}");
+          Console.WriteLine($"2. {BoatType.Motorsailer}");
+          Console.WriteLine($"3. {BoatType.Kayak}");
+          Console.WriteLine($"4. {BoatType.Other}");
+          Console.WriteLine("5. Return to main menu");
+
+          menuChoice = Int32.Parse(Console.ReadLine());
+
+          if (menuChoice == 1)
           {
-            Console.WriteLine("Select the specific boat type");
-            Console.WriteLine("================================================");
-            Console.WriteLine($"1. {BoatType.Sailboat}");
-            Console.WriteLine($"2. {BoatType.Motorsailer}");
-            Console.WriteLine($"3. {BoatType.Kayak}");
-            Console.WriteLine($"4. {BoatType.Other}");
-            Console.WriteLine("5. Return to main menu");
-
-            menuChoice = Int32.Parse(Console.ReadLine());
-
-            if (menuChoice == 1)
-            {
-              type = BoatType.Sailboat;
-              continueLoop = false;
-            }
-            else if (menuChoice == 2)
-            {
-              type = BoatType.Motorsailer;
-              continueLoop = false;
-            }
-            else if (menuChoice == 3)
-            {
-              type = BoatType.Kayak;
-              continueLoop = false;
-            }
-            else if (menuChoice == 4)
-            {
-              type = BoatType.Other;
-              continueLoop = false;
-            }
-            else
-            {
-              Console.WriteLine("Not a valid type");
-            }
+            boatModel.Type = BoatType.Sailboat.ToString();
+            continueLoop = false;
           }
-          while (continueLoop);
-
-          int boatLength = CheckBoatLength();
-
-          try
+          else if (menuChoice == 2)
           {
-            boatModel.RegisterBoat(memberID, type, boatLength);
-            Console.WriteLine("================================================");
-            Console.WriteLine("The boat was successfully registered to our system");
-            Console.WriteLine("Press any button to go back to the main menu");
-            Console.ReadKey(true);
+            boatModel.Type = BoatType.Motorsailer.ToString();
+            continueLoop = false;
           }
-          catch
+          else if (menuChoice == 3)
           {
-            throw new ErrorWhileCreatingBoat();
+            boatModel.Type = BoatType.Kayak.ToString();
+            continueLoop = false;
           }
+          else if (menuChoice == 4)
+          {
+            boatModel.Type = BoatType.Other.ToString();
+            continueLoop = false;
+          }
+          else
+          {
+            Console.WriteLine("Not a valid type");
+          }
+        }
+        while (continueLoop);
+
+        boatModel.Length = CheckBoatLength();
+
+        try
+        {
+          boatModel.ID = databaseModel.GetBoatWithHighestID();
+          databaseModel.CreateBoat(member, boatModel);
+          Console.WriteLine("================================================");
+          Console.WriteLine("The boat was successfully registered to our system");
+          Console.WriteLine("Press any button to go back to the main menu");
+          Console.ReadKey(true);
+        }
+        catch
+        {
+          throw new ErrorWhileCreatingBoat();
+        }
       }
       else
       {
@@ -252,16 +250,17 @@ namespace View
 
     public void EditBoat()
     {
-      int memberID = CheckIfUserExistWithId();
-      if (memberModel.FindMemberInDatabase(memberID).boatList.Count > 0)
+      MemberModel member = CheckIfUserExistWithId();
+
+      if (databaseModel.SearchForMemberInDb(member.ID).Boats.Count > 0)
       {
-        BoatType boatType = SelectBoatType();
-        int boatID = CheckIfBoatExist(memberID);
-        int boatLength = CheckBoatLength();
+        boatModel = CheckIfBoatExist(member.ID);
+        boatModel.Type = SelectBoatType().ToString();
+        boatModel.Length = CheckBoatLength();
         
         try
         {
-          boatModel.EditBoat(memberID, boatID, boatType, boatLength);
+          databaseModel.EditBoat(member, boatModel);
           Console.WriteLine("Boat information was changed");
           Console.WriteLine("Press any button to go back to main menu");
           Console.ReadKey(true);     
@@ -282,45 +281,42 @@ namespace View
     public void DeleteBoat()
     {
       Console.Clear();
-      int memberID = CheckIfUserExistWithId();
-      if(memberModel.FindMemberInDatabase(memberID).boatList.Count > 0)
+      MemberModel member = CheckIfUserExistWithId();
+
+      if (databaseModel.SearchForMemberInDb(member.ID).Boats.Count > 0)
       {
-        int boatID = CheckIfBoatExist(memberID);
-        int uniqueBoat = 0;
         try
         {
-          uniqueBoat = boatModel.SearchUniqueBoat(memberID, boatID);
-          Console.WriteLine(uniqueBoat.GetType());
-        
+          BoatModel boat = CheckIfBoatExist(member.ID);                
+
+          Console.WriteLine("=========================");
+          Console.WriteLine($"Do you want to delete boat ID {boat.ID}?");
+          Console.WriteLine("1. Yes");
+          Console.WriteLine("2. No");
+
+          switch (Console.ReadLine())
+          {
+            case "1":
+              try
+              {
+                databaseModel.DeleteBoat(member, boat);
+                System.Console.WriteLine("Boat was removed");
+                System.Console.WriteLine("Press any button to go back to main menu");
+                Console.ReadKey(true);
+              }
+              catch (ErrorWhileDeletingBoat e)
+              {
+                System.Console.WriteLine(e);
+                throw new ErrorWhileDeletingBoat();
+              }
+              break;
+            default:
+              break;
+          }
         }
         catch
         {
           throw new ErrorWhileSearchingForBoat();
-        }
-
-        Console.WriteLine("=========================");
-        Console.WriteLine($"Do you want to delete boat ID {uniqueBoat}?");
-        Console.WriteLine("1. Yes");
-        Console.WriteLine("2. No");
-
-        switch (Console.ReadLine())
-        {
-          case "1":
-            try
-            {
-              boatModel.deleteBoat(memberID, boatID);
-              Console.WriteLine("Boat was removed");
-              Console.WriteLine("Press any button to go back to main menu");
-              Console.ReadKey(true);
-            }
-            catch (ErrorWhileDeletingBoat e)
-            {
-              Console.WriteLine(e);
-              throw new ErrorWhileDeletingBoat();
-            }
-            break;
-          default:
-            break;
         }
       }
       else
