@@ -66,6 +66,7 @@ namespace View
           Console.WriteLine("================================================");
           Console.WriteLine("   -- Displaying a compact list of members --   ");
           Console.WriteLine("================================================");
+          Console.WriteLine(" ");
           DisplayAllMembers(ListType.Compact);
           Console.WriteLine("=================================================");
           Console.WriteLine("Press any button to go back to the main menu..");
@@ -76,6 +77,7 @@ namespace View
           Console.WriteLine("================================================");
           Console.WriteLine("   -- Displaying a verbose list of members --   ");
           Console.WriteLine("================================================");
+          Console.WriteLine(" ");
           DisplayAllMembers(ListType.Verbose);
           Console.WriteLine("=================================================");
           Console.WriteLine("Press any button to go back to the main menu..");
@@ -99,7 +101,8 @@ namespace View
 
       foreach (var member in listOfMembers)
       {
-        Console.WriteLine("==================--Member--====================");
+        Console.WriteLine("==================--Member--====================\n");
+
         if (listType == ListType.Compact)
         {
           Console.WriteLine( $"ID: {member.ID}, Name: {member.Name}, SSN: {member.SSN}, Number of boats: {member.Boats.Count}\n");
