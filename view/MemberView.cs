@@ -99,7 +99,7 @@ namespace View
 
       foreach (var member in listOfMembers)
       {
-        Console.WriteLine("==================--Member--====================\n");
+        Console.WriteLine("==================--Member--====================");
         if (listType == ListType.Compact)
         {
           Console.WriteLine( $"ID: {member.ID}, Name: {member.Name}, SSN: {member.SSN}, Number of boats: {member.Boats.Count}\n");
@@ -113,8 +113,6 @@ namespace View
 
     private void DisplayVerboseListOfMembersWithBoats (MemberModel member)
     {
-      Console.WriteLine("==================--Member--=====================");
-      Console.WriteLine("Presenting information about registered member\n");
       Console.WriteLine($"ID: {member.ID}\nName: {member.Name}\nSSN: {member.SSN}\n");
       DisplayAllBoatsFromOneMember(member);
     }
@@ -140,6 +138,8 @@ namespace View
           Console.WriteLine("------------------------------------------------");
           Console.Write("ID: ");
           id = Convert.ToInt32(Console.ReadLine());
+          Console.WriteLine(" ");
+          Console.WriteLine("==================--Member--====================\n");
         }
         while (id.ToString().Length < 0);
 
